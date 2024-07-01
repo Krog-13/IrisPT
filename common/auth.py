@@ -1,9 +1,9 @@
-from common.config import ADMIN_CREDENTIAL, endpoints
+from common.config import ADMIN_CREDENTIAL, endpoints, USER_CREDENTIAL
 
 
 def get_user_token(client):
     """Obtain an authentication token for the regular user"""
-    response = client.post(endpoints["login"], json=ADMIN_CREDENTIAL)
+    response = client.post(endpoints["login"], json=USER_CREDENTIAL)
     return response.json()["accessToken"]
 
 

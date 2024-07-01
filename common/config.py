@@ -7,7 +7,9 @@ ADMIN_CREDENTIAL = {
     "password": "admin123"
 }
 
-USERS_CREDENTIAL = [("7777777777", "admin123"),
+USER_CREDENTIAL = {"phoneNumber": "7472010101",
+                     "password": "admin123"}
+USERS_CREDENTIAL = [("7472010101", "admin123"),
                     ("11", "11"),
                     ("11", "11")]
 

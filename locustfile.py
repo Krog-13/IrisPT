@@ -6,12 +6,12 @@ import time
 import logging
 from http.client import HTTPConnection
 
-HTTPConnection.debuglevel = 1
-logging.basicConfig()
-logging.getLogger().setLevel(logging.DEBUG)
-requests_log = logging.getLogger("requests.packages.urllib3")
-requests_log.setLevel(logging.DEBUG)
-requests_log.propagate = True
+# HTTPConnection.debuglevel = 1
+# logging.basicConfig()
+# logging.getLogger().setLevel(logging.DEBUG)
+# requests_log = logging.getLogger("requests.packages.urllib3")
+# requests_log.setLevel(logging.ERROR)
+# requests_log.propagate = False
 
 
 @events.test_start.add_listener
@@ -28,21 +28,6 @@ def on_locust_init(environment, **kwargs):
         print("I'm on master node")
     else:
         print("I'm on a worker or standalone node")
-
-
-class QuickAdminUser(HttpUser):
-    wait_time = between(2, 5)
-
-    def on_start(self) -> None:
-        self.token = get_admin_token(self.client)
-        self.client.headers = {'Authorization': f'Bearer {self.token}'}
-
-    def on_stop(self):
-        print("Stop Locust")
-
-    @task
-    def
-
 
 class QuickstartUser(HttpUser):
     wait_time = between(2, 5)
@@ -61,9 +46,7 @@ class QuickstartUser(HttpUser):
             self.client.get(f"/product/{item_id}", name="/productchik") # name групировка запросовconstant_pacing
             time.sleep(1)
 
-    @task
-    def get_cart(self):
-        self.client.get("/cart")
+
 
     @task(4)
     def view_category(self):

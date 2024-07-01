@@ -18,5 +18,17 @@ class QuickAdminUser(HttpUser):
         print("Stop Locust")
 
     @task
-    def view_items_1(self):
-        self.client.get("/")
+    def get_lotoday(self):
+        self.client.get("/lotoday")
+
+    @task
+    def view_globalconfig(self):
+        self.client.get("/globalConfig")
+
+    @task
+    def view_prizes(self):
+        self.client.get("/prize/all")
+
+    @task(3)
+    def get_cart(self):
+        self.client.get("/globalConfig")
