@@ -1,10 +1,11 @@
 from locust import task, between, events, FastHttpUser, constant_throughput
+from locust.contrib.fasthttp import RestResponseContextManager
 from common.auth import get_user_token
 from locust.runners import MasterRunner
-import random
 from collections.abc import Generator
 from contextlib import contextmanager
-from locust.contrib.fasthttp import RestResponseContextManager
+import random
+import time
 
 @events.test_start.add_listener
 def on_test_start(environment, **kwargs):
@@ -40,9 +41,9 @@ class RestUserThatLooksAtErrors(FastHttpUser):
 
 
 class MyOtherRestUser(RestUserThatLooksAtErrors):
-    # wait_time = between(0.5, 10)
+    wait_time = between(1, 5)
     # wait_time = constant(180)  # be nice to postman-echo.com, and dont run this at scale.
-    wait_time = constant_throughput(0.5)  # be nice to postman-echo.com, and dont run this at scale.
+    # wait_time = constant_throughput(0.5)  # be nice to postman-echo.com, and dont run this at scale.
 
     @task
     def t(self):
@@ -68,6 +69,7 @@ class MyOtherRestUser(RestUserThatLooksAtErrors):
             with self.rest("GET", f"/category/{id}", name="/category") as _resp:
                 if _resp.js["id"] != id:
                     _resp.failure("Phone number is not what we expected")
+            time.sleep(1)
 
     @task(4)
     def t3(self):
@@ -75,3 +77,9 @@ class MyOtherRestUser(RestUserThatLooksAtErrors):
             pass
         with self.rest("GET", "/model", json={"all": 1, "deal": 0}) as _resp:
             pass
+
+    @task(1)
+    def t4(self):
+        with self.rest("GET", "/cart") as _resp:
+            if not _resp.js["cartItems"]:
+                _resp.success("Cart is empty")

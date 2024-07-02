@@ -8,7 +8,7 @@ from http.client import HTTPConnection
 
 
 class QuickAdminUser(HttpUser):
-    wait_time = between(2, 5)
+    wait_time = between(2, 10)
 
     def on_start(self) -> None:
         self.token = get_admin_token(self.client)

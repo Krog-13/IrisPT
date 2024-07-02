@@ -3,13 +3,13 @@
 BASE_URL = "http://83.97.77.248:3000"
 
 ADMIN_CREDENTIAL = {
-    "phoneNumber": "7777777777",
-    "password": "admin123"
+    "phoneNumber": "phone",
+    "password": "password"
 }
 
-USER_CREDENTIAL = {"phoneNumber": "7472010101",
-                     "password": "admin123"}
-USERS_CREDENTIAL = [("7472010101", "admin123"),
+USER_CREDENTIAL = {"phoneNumber": "phone",
+                     "password": "password"}
+USERS_CREDENTIAL = [("phone", "password"),
                     ("11", "11"),
                     ("11", "11")]
 
